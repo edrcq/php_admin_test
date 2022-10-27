@@ -71,7 +71,7 @@ $users = $stmt->fetchAll();
 
     <div>
         <h2>Creer un user</h2>
-        <form method="POST" action="actions/create_user.php">
+        <form method="POST" action="actions/create_user.php" id="create_user_form">
             username: <input type="text" name="username" /><br />
             password : <input type="password" name="password" /><br />
             <input type="submit" value="Create now!">
@@ -87,17 +87,12 @@ $users = $stmt->fetchAll();
     </div>
 
     <!-- Table des Utilisateurs -->
-    <div class="flex-ct">
+    <div class="flex-ct" id="users-list">
         <h2>Tableau des users</h2>
-        <?php for($i = 0; $i < count($users); $i++) { ?>
-        <div class="flex-row">
-            <div>
-                User: <?= $users[$i]['username'] ?>
-                <a href="update_form.php?id=<?= $users[$i]['id'] ?>">Edit</a>
-                <a href="actions/delete_user.php?id=<?= $users[$i]['id'] ?>">Delete</a>
-            </div>
-        </div>
-        <?php } ?>
+        
     </div>
+
+    <!-- <script src="ajax.js"></script> -->
+    <script src="ajax2.js"></script>
 </body>
 </html>
