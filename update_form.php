@@ -12,7 +12,14 @@ if (isset($_GET['id'])) {
 }
 
 // Recuperer l'utilisateur a mettre a jour avec PDO et une requete SQL
-// $user = ...;
+$stmt = $db->prepare('SELECT * FROM users WHERE id = ?');
+$stmt->execute([$_GET['id']]);
+$user = $stmt->fetch();
+
+if (!$user) {
+    header('Location: users.php');
+    die();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +31,11 @@ if (isset($_GET['id'])) {
 </head>
 <body>
     <!-- Afficher un formulaire avec les data de l'utilisateur -->
-    <!-- <input type="text" name="username" value="<?= /* $user['username'] */ ?>" -->
+    <form method="POST" action="actions/update_user.php?id=<?= $user['id'] ?>">
+        <input type="hidden" name="old_username" value="<?= $user['username'] ?>">
+        <input type="text" name="username" value="<?= $user['username'] ?>">
+        <input type="password" name="new_password" value="">
+        <input type="submit" value="Update now!">
+    </form>
 </body>
 </html>

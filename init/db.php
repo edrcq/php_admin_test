@@ -1,10 +1,15 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // connexion a la DB
 
-$db = new PDO('mysql:...', 'root', '');
+try {
+    $db = new PDO('mysql:host=localhost;dbname=exo;', 'exo', 'exopassword');
 
-// par défaut, les SELECT FROM  -> fetch et fetchAll recupere des tableaux associatifs
-// possible de recup des objets en changeant PDO::FETCH_ASSOC par PDO::FETCH_OBJ
-$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
+    // par défaut, les SELECT FROM  -> fetch et fetchAll recupere des tableaux associatifs
+    // possible de recup des objets en changeant PDO::FETCH_ASSOC par PDO::FETCH_OBJ
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+}
+catch(PDOException $e) {
+    die('Cannot connect to DB');
+}
